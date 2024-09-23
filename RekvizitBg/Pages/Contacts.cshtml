@@ -29,7 +29,7 @@
                 <tbody>
                     <tr>
                         <th>Телефон:</th>
-                        <td>+359 87 740 78307</td>
+                        <td>+359 87 740 7830</td>
                     </tr>
                     <tr>
                         <th>Имейл:</th>
@@ -42,7 +42,7 @@
         <!-- Колона за формата -->
         <div class="col-md-6 ">
             <h4 class="mb-3 text-center">Изпратете ни съобщение</h4>
-            <form method="post" action="/Contact/SendMessage">
+            <form method="post" asp-page-handler="SendMessage">
                 <div class="mb-3">
                     <label for="name" class="form-label">Име</label>
                     <input type="text" class="form-control" id="name" name="name" required>
