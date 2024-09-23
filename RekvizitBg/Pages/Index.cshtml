@@ -1,0 +1,58 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Начало";
+}
+<div class="jumbotron text-center bg-image" style="background-image: url('/images/background.webp'); background-size: cover; height: 60vh; color: white;">
+    <div class="container">
+        <h1 class="display-4">РЕКВИЗИТ БГ</h1>
+        <p class="lead ">Магията на киното и ретрото под наем. Открийте нашата уникална колекция от реквизити и аксесоари.</p>
+        <a class="btn btn-outline-light btn-lg" href="/Contacts">Свържете се с нас</a>
+    </div>
+</div>
+
+<div class="container py-5">
+    <h2 class="text-center mb-4"><b>Нашите Категории</b></h2>
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-sm">
+                <img src="~/images/old_furniture.webp" class="card-img-top" alt="Мебели">
+                <div class="card-body">
+                    <h5 class="card-title">Мебели</h5>
+                    <p class="card-text">Изключителен избор от ретро и модерни мебели за всякакви сцени.</p>
+                    @* <a href="/Categories/Furniture" class="btn btn-primary">Виж повече</a> *@
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-sm">
+                <img src="~/images/old_accesoaries.webp" class="card-img-top" alt="Аксесоари">
+                <div class="card-body">
+                    <h5 class="card-title">Аксесоари</h5>
+                    <p class="card-text">Уникални аксесоари за разнообразни събития и проекти.</p>
+                    @* <a href="/Categories/Accessories" class="btn btn-primary">Виж повече</a> *@
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-sm">
+                <img src="~/images/old_weapons.webp" class="card-img-top" alt="Оръжия">
+                <div class="card-body">
+                    <h5 class="card-title">Оръжия</h5>
+                    <p class="card-text">Голям избор от оръжия за исторически и кино продукции.</p>
+                    @* <a href="/Categories/Weapons" class="btn btn-primary">Виж повече</a> *@
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-sm">
+                <img src="~/images/old_items.webp" class="card-img-top" alt="Разни предмети">
+                <div class="card-body">
+                    <h5 class="card-title">Разни предмети</h5>
+                    <p class="card-text">Открийте разнообразие от уникални предмети за всякакви нужди.</p>
+                    @* <a href="/Categories/Various" class="btn btn-primary">Виж повече</a> *@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

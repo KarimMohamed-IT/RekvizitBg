@@ -1,0 +1,273 @@
+﻿html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+h1, h2 {
+    font-family: 'Playfair Display', serif;
+}
+
+
+/* Jumbotron */
+.jumbotron {
+    background-size: cover;
+    background-position: center;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: relative;
+}
+
+    .jumbotron::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Dark overlay over the background image */
+    }
+
+    .jumbotron .container {
+        position: relative;
+        z-index: 2;
+    }
+
+    .jumbotron h1 {
+        font-size: 4rem;
+        font-weight: 700;
+    }
+
+    .jumbotron p {
+        font-size: 1.25rem;
+    }
+
+/* Cards */
+.card {
+    border: none;
+    transition: transform 0.3s ease-in-out;
+}
+
+    .card:hover {
+        transform: translateY(-10px);
+    }
+
+    .card img {
+        /*height: 200px;*/
+        object-fit: cover;
+    }
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+.btn-outline-light {
+    color: white;
+    border-color: white;
+}
+
+    .btn-outline-light:hover {
+        background-color: white;
+        color: black;
+    }
+
+/* Подобрен padding за таблицата */
+.table-bordered th, .table-bordered td {
+    padding: 1.2rem;
+    vertical-align: middle;
+}
+
+/* Контрол на разстоянието между елементи */
+.mb-4 {
+    margin-bottom: 2rem;
+}
+
+/* Увеличаване на ширината на колоната с текста */
+.col-md-7 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+/* Подравняване на елементите */
+.row.align-items-start {
+    align-items: stretch;
+}
+
+/* Списък за предимствата */
+ul {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+}
+/* Контрол на мащаба и височината на изображението */
+.about-image {
+    background-image: url('/images/aboutus1.webp'); /* Замени с реалния път до изображението */
+    background-size: cover; /* Запълване на контейнера без изкривяване */
+    background-position: center; /* Центриране на изображението */
+    background-repeat: no-repeat;
+    min-height: 550px; /* Минимална височина */
+    max-height: 600px; /* Максимална височина за по-добра адаптация */
+    width: 100%; /* Ширината на изображението да бъде 100% */
+    border-radius: 8px; /* Леко заобляне на ъглите */
+}
+
+/* Увеличаване на ширината на колоната с текста */
+.col-md-7 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Подравняване на елементите */
+.row.align-items-start {
+    align-items: flex-start; /* Подравняване по началото на текста */
+}
+
+/* Общи стилове за шрифтове и разстояния */
+h2, h4 {
+    font-family: 'Playfair Display', serif;
+}
+
+p, ul {
+    font-family: 'Montserrat', sans-serif;
+}
+
+ul {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+}
+
+.container {
+    max-width: 1200px; /* Ограничаване на ширината на контейнера за по-добър изглед */
+}
+
+/* Фон само зад заглавието */
+.contact-title {
+    background-image: url('/images/contactus.jpg'); /* Замени с реалния път до изображението */
+    background-size: cover; /* Уверява се, че изображението запълва заглавието */
+    background-position: center left; /* Позиционира изображението така, че телефонът да се вижда */
+    background-repeat: no-repeat;
+    color: white; /* Цветът на текста за добър контраст */
+    padding: 20px; /* Добавя разстояние около текста */
+    border-radius: 8px; /* Заобля ъглите на заглавието */
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    height: 300px; /* Увеличава височината на секцията */
+}
+
+
+/* Мобилна версия, ако е нужно */
+@media (max-width: 768px) {
+    .contact-title {
+        background-position: center center; /* За мобилни устройства, центриране на фона */
+        background-size: cover; /* Изображението да запълва заглавието дори на малък екран */
+    }
+}
+
+/* The blurred, semi-transparent rectangle behind the text */
+.blurred-background {
+    /*background: rgba(255, 255, 255, 0.1);*/ /* Semi-transparent white background */
+    backdrop-filter: blur(5px); /* Blurs the background behind the div */
+    padding: 20px; /* Space around the text */
+    border-radius: 15px; /* Rounded corners */
+    display: inline-block;
+    text-align: center; /* Center the text */
+    width:100%;
+    margin: 0 auto; /* Center the blurred div horizontally */
+}
+
+/* Ensure it scales correctly for mobile devices */
+@media (max-width: 768px) {
+    .blurred-background {
+        padding: 15px;
+        width: 100%; /* Make it take full width on mobile */
+    }
+}
+
+/* Contact section styling */
+.contact-section {
+    background-image: url('/images/contactus.jpg'); /* Replace with the correct path to your background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 50px 20px;
+    color: white; /* Ensure text is white for contrast */
+    text-align: center;
+}
+
+/* Jumbotron for the Contact Us page */
+.jumbotron-contactus {
+    background-image: url('/images/contactus.jpg'); /* Replace with your actual contact image path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 60vh; /* Adjust height to your preference */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: white;
+    margin-bottom: 40px; /* Adds spacing after the jumbotron */
+    padding: 20px;
+    text-align: center;
+}
+
+    /* Dark overlay to enhance text readability */
+    .jumbotron-contactus::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7); /* Dark overlay over the background image */
+        z-index: 1; /* Make sure this stays behind the text */
+    }
+
+    /* Ensures text stays above the overlay */
+    .jumbotron-contactus .jumbotron-content {
+        position: relative;
+        z-index: 2; /* Place content above the overlay */
+    }
+
+    .jumbotron-contactus h1 {
+        font-size: 3rem; /* Adjust as needed */
+        font-weight: bold;
+    }
+
+    .jumbotron-contactus p {
+        font-size: 1.25rem; /* Adjust as needed */
+    }

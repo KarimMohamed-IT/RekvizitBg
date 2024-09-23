@@ -1,0 +1,65 @@
+﻿@page
+@model ContactsModel
+@{
+    ViewData["Title"] = "Контакти";
+}
+
+
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success mt-4">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<div class="jumbotron-contactus">
+    <div class=" text-center jumbotron-content blurred-background">
+        <h1 class="display-4 ">Свържете се с нас</h1>
+        <p class="lead">Ние сме на разположение да отговорим на вашите въпроси</p>
+    </div>
+</div>
+
+<div class="container py-5">
+    <div class="row">
+        <!-- Колона за контактната информация -->
+        <div class="col-md-6 mb-5">
+            <h4 class="mb-5 text-center">Контактна информация</h4>
+            <table class="table table-bordered w-100">
+                <tbody>
+                    <tr>
+                        <th>Телефон:</th>
+                        <td>+359 87 740 78307</td>
+                    </tr>
+                    <tr>
+                        <th>Имейл:</th>
+                        <td>info@rekvizit.bg</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Колона за формата -->
+        <div class="col-md-6 ">
+            <h4 class="mb-3 text-center">Изпратете ни съобщение</h4>
+            <form method="post" action="/Contact/SendMessage">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Име</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Имейл</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Съобщение</label>
+                    <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                </div>
+                <div class="text-center">
+
+                    <button type="submit" class="btn btn-primary  ">Изпрати</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
