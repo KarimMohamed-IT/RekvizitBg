@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using RekvizitBg.Services;
 namespace RekvizitBg
 {
     public class Program
@@ -11,6 +12,8 @@ namespace RekvizitBg
             // Add services to the container.
            
             builder.Services.AddRazorPages();
+            builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
+            builder.Services.AddTransient<EmailService>();
 
             var app = builder.Build();
 

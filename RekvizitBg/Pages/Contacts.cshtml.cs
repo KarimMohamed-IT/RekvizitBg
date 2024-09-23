@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using RekvizitBg.Services;
 
 namespace RekvizitBg.Pages
 {
@@ -14,9 +15,12 @@ namespace RekvizitBg.Pages
         [BindProperty]
         public string Message { get; set; }
 
-        public ContactsModel(ILogger<ContactsModel> logger)
+        private readonly EmailService _emailService;
+
+        public ContactsModel(ILogger<ContactsModel> logger, EmailService emailService)
         {
             _logger = logger;
+            _emailService = emailService;
         }
 
         public void OnGet()
@@ -24,17 +28,21 @@ namespace RekvizitBg.Pages
             ViewData["ActivePage"] = "Contacts"; // Set the active page here
         }
 
-        public IActionResult OnPostSendMessage()
+        public async Task<IActionResult> OnPostSendMessage()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
+            string messageBody = $"Name: {Name}<br>Email: {Email}<br>Message: {Message}";
+
+            await _emailService.SendEmailAsync(Email, "Contact Form Submission", messageBody);
+
             // Логика за обработка на съобщението, като например изпращане на имейл или записване в база данни
 
             TempData["SuccessMessage"] = "Вашето съобщение беше изпратено успешно!";
-            return RedirectToPage("/Contact");
+            return RedirectToPage("/Contacts");
         }
     }
 }
