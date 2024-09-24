@@ -19,7 +19,7 @@
             emailMessage.From.Add(new MailboxAddress(_smtpSettings.SenderName, _smtpSettings.SenderEmail));
             emailMessage.To.Add(new MailboxAddress("", recipientEmail));
             //emailMessage.To.Add(new MailboxAddress("information", "info@rekvizit.bg" ));         
-            emailMessage.To.Add(new MailboxAddress("information", "rekvizit@gmail.bg"));
+            emailMessage.To.Add(new MailboxAddress("information", "rekvizit.bg@gmail.com"));
             emailMessage.Subject = subject;
 
             var bodyBuilder = new BodyBuilder { HtmlBody = messageBody };
