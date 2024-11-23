@@ -33,7 +33,7 @@
                     </tr>
                     <tr>
                         <th>Имейл:</th>
-                        <td>info@rekvizit.bg</td>
+                        <td>rekvizit.bg@gmail.com</td>
                     </tr>
                 </tbody>
             </table>
@@ -52,14 +52,38 @@
                     <input type="email" class="form-control" id="email" name="email" required>
                 </div>
                 <div class="mb-3">
+                    <label for="tel" class="form-label">Телефон:</label>
+                    <input type="tel" class="form-control" id="tel" name="tel" required>
+                </div>
+                <div class="mb-3">
                     <label for="message" class="form-label">Съобщение</label>
                     <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
                 </div>
                 <div class="text-center">
 
-                    <button type="submit" class="btn btn-primary  ">Изпрати</button>
+                    <button type="submit" id="form_captcha"
+                        class="btn btn-primary g-recaptcha"
+                            data-sitekey="6LcC9IUqAAAAAL6JE7blweCaalkMn2hCtyWUlWIh"
+                            data-callback="onSubmit"
+                            data-action="submit">
+                        Изпрати
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+
+
+
+<script>
+    function onSubmit(e) {
+        e.preventDefault();
+        grecaptcha.ready(function () {
+            grecaptcha.execute('6LcC9IUqAAAAAL6JE7blweCaalkMn2hCtyWUlWIh', { action: 'submit' }).then(function (token) {
+                // Add your logic to submit to your backend server here.
+            });
+        });
+    }
+</script>
