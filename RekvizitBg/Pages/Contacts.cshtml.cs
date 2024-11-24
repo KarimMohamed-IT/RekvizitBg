@@ -7,7 +7,7 @@ namespace RekvizitBg.Pages
     public class ContactsModel : PageModel
     {
         private readonly string htmlNewLine = "<br>";
-        private CreateAssessmentSample assessmentSample;
+        //private CreateAssessmentSample assessmentSample;
         
         private readonly ILogger<ContactsModel> _logger;
 
