@@ -38,7 +38,7 @@ namespace RekvizitBg.Pages
                 return Page();
             }
 
-            assessmentSample.createAssessment();
+            //assessmentSample.createAssessment();
 
 
             string messageBody = $"Name: {Name}<br>Email: {Email}<br>Message: {Message}";
