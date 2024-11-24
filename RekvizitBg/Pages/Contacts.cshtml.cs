@@ -6,7 +6,8 @@ namespace RekvizitBg.Pages
 {
     public class ContactsModel : PageModel
     {
-        private CreateAssessmentSample assessmentSample;
+        private readonly string htmlNewLine = "<br>";
+        //private CreateAssessmentSample assessmentSample;
         
         private readonly ILogger<ContactsModel> _logger;
 
@@ -19,11 +20,10 @@ namespace RekvizitBg.Pages
 
         private readonly EmailService _emailService;
 
-        public ContactsModel(ILogger<ContactsModel> logger, EmailService emailService, CreateAssessmentSample cas)
+        public ContactsModel(ILogger<ContactsModel> logger, EmailService emailService)
         {
             _logger = logger;
             _emailService = emailService;
-            assessmentSample = cas;
         }
 
         public void OnGet()
