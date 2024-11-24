@@ -6,12 +6,17 @@ namespace RekvizitBg.Pages
 {
     public class ContactsModel : PageModel
     {
+        private readonly string htmlNewLine = "<br>";
+        private CreateAssessmentSample assessmentSample;
+        
         private readonly ILogger<ContactsModel> _logger;
 
         [BindProperty]
         public string Name { get; set; }
         [BindProperty]
         public string Email { get; set; }
+        [BindProperty]
+        public int Phone { get; set; }
         [BindProperty]
         public string Message { get; set; }
 
@@ -35,7 +40,10 @@ namespace RekvizitBg.Pages
                 return Page();
             }
 
-            string messageBody = $"Name: {Name}<br>Email: {Email}<br>Message: {Message}";
+            //assessmentSample.createAssessment();
+
+
+            string messageBody = @$"Name: {Name} {htmlNewLine} Email: {Email} {htmlNewLine} Phone: {Phone} {htmlNewLine} Message: {Message}";
 
             await _emailService.SendEmailAsync(Email, "Contact Form Submission", messageBody);
 
