@@ -6,6 +6,8 @@ namespace RekvizitBg.Pages
 {
     public class ContactsModel : PageModel
     {
+        private CreateAssessmentSample assessmentSample;
+        
         private readonly ILogger<ContactsModel> _logger;
 
         [BindProperty]
@@ -17,10 +19,11 @@ namespace RekvizitBg.Pages
 
         private readonly EmailService _emailService;
 
-        public ContactsModel(ILogger<ContactsModel> logger, EmailService emailService)
+        public ContactsModel(ILogger<ContactsModel> logger, EmailService emailService, CreateAssessmentSample cas)
         {
             _logger = logger;
             _emailService = emailService;
+            assessmentSample = cas;
         }
 
         public void OnGet()
@@ -34,6 +37,9 @@ namespace RekvizitBg.Pages
             {
                 return Page();
             }
+
+            assessmentSample.createAssessment();
+
 
             string messageBody = $"Name: {Name}<br>Email: {Email}<br>Message: {Message}";
 

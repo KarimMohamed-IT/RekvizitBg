@@ -14,6 +14,7 @@ namespace RekvizitBg
             builder.Services.AddRazorPages();
             builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
             builder.Services.AddTransient<EmailService>();
+            builder.Services.AddScoped<CreateAssessmentSample>();
 
             var app = builder.Build();
 
