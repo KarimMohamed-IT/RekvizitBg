@@ -16,7 +16,7 @@ namespace RekvizitBg.Pages
         [BindProperty]
         public string Email { get; set; }
         [BindProperty]
-        public int Phone { get; set; }
+        public string Phone { get; set; }
         [BindProperty]
         public string Message { get; set; }
 
