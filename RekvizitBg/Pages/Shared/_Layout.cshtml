@@ -3,53 +3,179 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Rekvizit.bg - Props, Retro Cars, Actors, Accessories for Rent" />
-    <meta name="description" content="Rekvizit.bg - Реквизит, ретро автомобили, актьори, аксесоари под наем" />
-    <meta name="keywords" content="props rental, movie props, retro cars, film accessories" />
-    <meta name="keywords" content="реквизит под наем, филмов реквизит, ретро автомобили, филмови аксесоари, цена" />
+    <meta name="description" content="Реквизит БГ — Наемете уникални филмови реквизити, ретро мебели, костюми, оръжия и ретро автомобили за кино, театър и събития. Над 10 години опит." />
+    <meta name="keywords" content="реквизит под наем, филмов реквизит, ретро мебели, ретро автомобили, кино продукция, театрален реквизит, аксесоари филм, костюми под наем, props rental Bulgaria, movie props Sofia" />
     <meta name="author" content="Rekvizit.bg" />
-    <title>@ViewData["Title"] - РЕКВИЗИТ БГ</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://www.google.com/recaptcha/api.js?render=6LcC9IUqAAAAAL6JE7blweCaalkMn2hCtyWUlWIh"></script>
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="@ViewData["Title"] — РЕКВИЗИТ БГ" />
+    <meta property="og:description" content="Магията на киното и ретрото под наем. Уникални реквизити за филми, театър и събития." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://rekvizit.bg" />
+    <meta property="og:image" content="https://rekvizit.bg/images/hero_banner.png" />
+    <link rel="canonical" href="https://rekvizit.bg" />
+    <title>@ViewData["Title"] — РЕКВИЗИТ БГ</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- Bootstrap 5 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="top-bar-contact">
+                <a href="tel:+359897088791"><i class="fa-solid fa-phone"></i> +359 897 088 791</a>
+                <a href="mailto:rekvizit.bg@gmail.com"><i class="fa-solid fa-envelope"></i> rekvizit.bg@gmail.com</a>
+            </div>
+            <div class="top-bar-social">
+                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" aria-label="Viber"><i class="fa-brands fa-viber"></i></a>
+                <a href="https://wa.me/359897088791" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-main" id="mainNav">
             <div class="container">
-                <a class="navbar-brand" href="/">РЕКВИЗИТ БГ</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <a class="navbar-brand" href="/">
+                    <img src="/images/logo.jpg" alt="Реквизит БГ" class="brand-logo" />
+                    <span class="brand-text">РЕКВИЗИТ<span class="brand-accent">БГ</span></span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Меню">
+                    <i class="fa-solid fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link @(ViewData["ActivePage"] as string == "Home" ? "active" : "")" href="/">Начало</a>
+                            <a class="nav-link @(ViewData["ActivePage"] as string == "Home" ? "active" : "")" href="/">
+                                <i class="fa-solid fa-house-chimney"></i> Начало
+                            </a>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link @(ViewData["ActivePage"] as string == "Contacts" ? "active" : "")" href="/Contacts">Контакт</a>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewData["ActivePage"] as string == "Catalog" ? "active" : "")" href="/Catalog">
+                                <i class="fa-solid fa-film"></i> Каталог
+                            </a>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link @(ViewData["ActivePage"] as string == "AboutUs" ? "active" : "")" href="/AboutUs">За нас</a>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewData["ActivePage"] as string == "AboutUs" ? "active" : "")" href="/AboutUs">
+                                <i class="fa-solid fa-users"></i> За нас
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewData["ActivePage"] as string == "Contacts" ? "active" : "")" href="/Contacts">
+                                <i class="fa-solid fa-address-book"></i> Контакти
+                            </a>
+                        </li>
+                        <li class="nav-item nav-cta">
+                            <a class="nav-link btn-nav-cta" href="/Contacts">
+                                <i class="fa-solid fa-paper-plane"></i> Запитване
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <main role="main" class="pb-3">
+
+    <!-- Main Content -->
+    <main role="main">
         @RenderBody()
     </main>
-    <footer class="footer bg-dark text-white text-center py-4 mt-5">
-        <div class="container">
-            <p>&copy; 2024 Реквизит БГ</p>
-        @*     <a href="#" class="text-white me-3">Facebook</a>
-            <a href="#" class="text-white">Instagram</a> *@
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <!-- Brand Column -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="footer-brand">
+                            <img src="/images/logo.jpg" alt="Реквизит БГ" class="footer-logo" />
+                            <h3>РЕКВИЗИТ<span class="brand-accent">БГ</span></h3>
+                        </div>
+                        <p class="footer-desc">Магията на киното и ретрото под наем. Уникални реквизити за филмови продукции, театрални постановки и специални събития.</p>
+                        <div class="footer-social">
+                            <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="https://wa.me/359897088791" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                            <a href="#" aria-label="Viber"><i class="fa-brands fa-viber"></i></a>
+                        </div>
+                    </div>
+                    <!-- Quick Links -->
+                    <div class="col-lg-2 col-md-6 mb-4">
+                        <h5 class="footer-heading">Навигация</h5>
+                        <ul class="footer-links">
+                            <li><a href="/"><i class="fa-solid fa-chevron-right"></i> Начало</a></li>
+                            <li><a href="/Catalog"><i class="fa-solid fa-chevron-right"></i> Каталог</a></li>
+                            <li><a href="/AboutUs"><i class="fa-solid fa-chevron-right"></i> За нас</a></li>
+                            <li><a href="/Contacts"><i class="fa-solid fa-chevron-right"></i> Контакти</a></li>
+                        </ul>
+                    </div>
+                    <!-- Categories -->
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <h5 class="footer-heading">Категории</h5>
+                        <ul class="footer-links">
+                            <li><a href="/Catalog"><i class="fa-solid fa-chevron-right"></i> Мебели</a></li>
+                            <li><a href="/Catalog"><i class="fa-solid fa-chevron-right"></i> Аксесоари</a></li>
+                            <li><a href="/Catalog"><i class="fa-solid fa-chevron-right"></i> Оръжия и Брони</a></li>
+                            <li><a href="/Catalog"><i class="fa-solid fa-chevron-right"></i> Ретро Автомобили</a></li>
+                            <li><a href="/Catalog"><i class="fa-solid fa-chevron-right"></i> Костюми</a></li>
+                        </ul>
+                    </div>
+                    <!-- Contact Info -->
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <h5 class="footer-heading">Контакти</h5>
+                        <ul class="footer-contact">
+                            <li>
+                                <i class="fa-solid fa-phone"></i>
+                                <a href="tel:+359897088791">+359 897 088 791</a>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-envelope"></i>
+                                <a href="mailto:rekvizit.bg@gmail.com">rekvizit.bg@gmail.com</a>
+                            </li>
+                            <li>
+                                <i class="fa-brands fa-viber"></i>
+                                <span>Viber: +359 897 088 791</span>
+                            </li>
+                            <li>
+                                <i class="fa-brands fa-whatsapp"></i>
+                                <a href="https://wa.me/359897088791">WhatsApp</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container text-center">
+                <p>&copy; @DateTime.Now.Year Реквизит БГ — Всички права запазени. <span class="footer-divider">|</span> Реквизити и аксесоари под наем за кино и театър.</p>
+            </div>
         </div>
     </footer>
-    <script src="~/js/site.js"></script>
+
+    <!-- Back to Top -->
+    <button id="backToTop" class="back-to-top" aria-label="Към началото">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

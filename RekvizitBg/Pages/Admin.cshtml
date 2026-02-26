@@ -1,0 +1,322 @@
+@page
+@model AdminModel
+@{
+    ViewData["Title"] = "Администрация";
+    Layout = "_Layout";
+}
+
+<section class="admin-section">
+    <div class="container">
+        <div class="section-title">
+            <h2><i class="fa-solid fa-gear text-gold"></i> Администрация</h2>
+            <p>Управлявайте категории, подкатегории и продукти.</p>
+        </div>
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert-success mb-4" style="text-align:center;">
+                <i class="fa-solid fa-circle-check"></i> @TempData["Success"]
+            </div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert-success mb-4" style="text-align:center; border-color: rgba(220,53,69,0.3); background: rgba(220,53,69,0.1); color: #ef5350;">
+                <i class="fa-solid fa-circle-exclamation"></i> @TempData["Error"]
+            </div>
+        }
+
+        <!-- TABS -->
+        <div class="admin-tabs">
+            <button class="admin-tab active" data-tab="tab-categories"><i class="fa-solid fa-folder"></i> Категории</button>
+            <button class="admin-tab" data-tab="tab-subcategories"><i class="fa-solid fa-folder-tree"></i> Подкатегории</button>
+            <button class="admin-tab" data-tab="tab-products"><i class="fa-solid fa-box"></i> Продукти</button>
+        </div>
+
+        <!-- ===== TAB: CATEGORIES ===== -->
+        <div id="tab-categories" class="admin-tab-content active">
+            <div class="row g-4">
+                <!-- Create form -->
+                <div class="col-lg-5">
+                    <div class="admin-card">
+                        <h3><i class="fa-solid fa-plus text-gold"></i> Нова Категория</h3>
+                        <form method="post" asp-page-handler="CreateCategory" enctype="multipart/form-data">
+                            <div class="admin-form-group">
+                                <label for="catName"><i class="fa-solid fa-tag"></i> Име</label>
+                                <input type="text" id="catName" name="name" placeholder="Напр. Мебели" required />
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="catDesc"><i class="fa-solid fa-align-left"></i> Описание</label>
+                                <textarea id="catDesc" name="description" rows="3" placeholder="Кратко описание на категорията..."></textarea>
+                            </div>
+                            <div class="admin-form-group">
+                                <label><i class="fa-solid fa-image"></i> Изображение</label>
+                                <div class="upload-area" id="catUploadArea">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    <p>Плъзнете файл или <span class="highlight">изберете от компютъра</span></p>
+                                    <input type="file" name="image" accept="image/*" style="display:none" id="catImageInput" />
+                                    <div class="upload-preview" id="catPreview"></div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-admin btn-admin-gold w-100">
+                                <i class="fa-solid fa-plus"></i> Създай категория
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <!-- Existing categories -->
+                <div class="col-lg-7">
+                    <div class="admin-card">
+                        <h3><i class="fa-solid fa-list text-gold"></i> Съществуващи Категории (@Model.Categories.Count)</h3>
+                        @if (Model.Categories.Any())
+                        {
+                            <ul class="admin-list">
+                                @foreach (var cat in Model.Categories)
+                                {
+                                    <li class="admin-list-item">
+                                        <div class="admin-list-item-info">
+                                            @if (!string.IsNullOrEmpty(cat.ImagePath))
+                                            {
+                                                <img src="@cat.ImagePath" alt="@cat.Name" class="admin-list-item-img" />
+                                            }
+                                            else
+                                            {
+                                                <div class="admin-list-item-img d-flex align-items-center justify-content-center" style="background: var(--bg-surface);">
+                                                    <i class="fa-solid fa-folder" style="color: var(--text-muted);"></i>
+                                                </div>
+                                            }
+                                            <div>
+                                                <div class="admin-list-item-name">@cat.Name</div>
+                                                <div class="admin-list-item-sub">@(cat.Subcategories?.Count ?? 0) подкатегории</div>
+                                            </div>
+                                        </div>
+                                        <div class="admin-list-item-actions">
+                                            <form method="post" asp-page-handler="DeleteCategory" style="display:inline">
+                                                <input type="hidden" name="id" value="@cat.Id" />
+                                                <button type="submit" class="btn-icon danger" onclick="return confirm('Сигурни ли сте?')" title="Изтрий">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p style="color: var(--text-muted); text-align: center; padding: 20px;">Няма категории.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== TAB: SUBCATEGORIES ===== -->
+        <div id="tab-subcategories" class="admin-tab-content">
+            <div class="row g-4">
+                <div class="col-lg-5">
+                    <div class="admin-card">
+                        <h3><i class="fa-solid fa-plus text-gold"></i> Нова Подкатегория</h3>
+                        <form method="post" asp-page-handler="CreateSubcategory" enctype="multipart/form-data">
+                            <div class="admin-form-group">
+                                <label for="subCat"><i class="fa-solid fa-folder"></i> Категория</label>
+                                <select id="subCat" name="categoryId" required>
+                                    <option value="">— Избери категория —</option>
+                                    @foreach (var cat in Model.Categories)
+                                    {
+                                        <option value="@cat.Id">@cat.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="subName"><i class="fa-solid fa-tag"></i> Име</label>
+                                <input type="text" id="subName" name="name" placeholder="Напр. Антични столове" required />
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="subDesc"><i class="fa-solid fa-align-left"></i> Описание</label>
+                                <textarea id="subDesc" name="description" rows="3" placeholder="Описание..."></textarea>
+                            </div>
+                            <div class="admin-form-group">
+                                <label><i class="fa-solid fa-image"></i> Изображение</label>
+                                <div class="upload-area" id="subUploadArea">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    <p>Плъзнете файл или <span class="highlight">изберете</span></p>
+                                    <input type="file" name="image" accept="image/*" style="display:none" id="subImageInput" />
+                                    <div class="upload-preview" id="subPreview"></div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-admin btn-admin-gold w-100">
+                                <i class="fa-solid fa-plus"></i> Създай подкатегория
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="admin-card">
+                        <h3><i class="fa-solid fa-list text-gold"></i> Съществуващи Подкатегории (@Model.Subcategories.Count)</h3>
+                        @if (Model.Subcategories.Any())
+                        {
+                            <ul class="admin-list">
+                                @foreach (var sub in Model.Subcategories)
+                                {
+                                    <li class="admin-list-item">
+                                        <div class="admin-list-item-info">
+                                            @if (!string.IsNullOrEmpty(sub.ImagePath))
+                                            {
+                                                <img src="@sub.ImagePath" alt="@sub.Name" class="admin-list-item-img" />
+                                            }
+                                            else
+                                            {
+                                                <div class="admin-list-item-img d-flex align-items-center justify-content-center" style="background: var(--bg-surface);">
+                                                    <i class="fa-solid fa-folder-tree" style="color: var(--text-muted);"></i>
+                                                </div>
+                                            }
+                                            <div>
+                                                <div class="admin-list-item-name">@sub.Name</div>
+                                                <div class="admin-list-item-sub">@sub.Category.Name</div>
+                                            </div>
+                                        </div>
+                                        <div class="admin-list-item-actions">
+                                            <form method="post" asp-page-handler="DeleteSubcategory" style="display:inline">
+                                                <input type="hidden" name="id" value="@sub.Id" />
+                                                <button type="submit" class="btn-icon danger" onclick="return confirm('Сигурни ли сте?')" title="Изтрий">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p style="color: var(--text-muted); text-align: center; padding: 20px;">Няма подкатегории.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== TAB: PRODUCTS ===== -->
+        <div id="tab-products" class="admin-tab-content">
+            <div class="row g-4">
+                <div class="col-lg-5">
+                    <div class="admin-card">
+                        <h3><i class="fa-solid fa-plus text-gold"></i> Нов Продукт / Снимка</h3>
+                        <form method="post" asp-page-handler="CreateProduct" enctype="multipart/form-data">
+                            <div class="admin-form-group">
+                                <label for="prodCat"><i class="fa-solid fa-folder"></i> Категория</label>
+                                <select id="prodCat" name="categoryId" required onchange="updateSubcategoryOptions(this.value)">
+                                    <option value="">— Избери категория —</option>
+                                    @foreach (var cat in Model.Categories)
+                                    {
+                                        <option value="@cat.Id">@cat.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="prodSubCat"><i class="fa-solid fa-folder-tree"></i> Подкатегория (незадължително)</label>
+                                <select id="prodSubCat" name="subcategoryId">
+                                    <option value="">— Без подкатегория —</option>
+                                </select>
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="prodName"><i class="fa-solid fa-tag"></i> Име</label>
+                                <input type="text" id="prodName" name="name" placeholder="Напр. Антично бюро от XIX век" required />
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="prodDesc"><i class="fa-solid fa-align-left"></i> Описание</label>
+                                <textarea id="prodDesc" name="description" rows="3" placeholder="Описание на продукта..."></textarea>
+                            </div>
+                            <div class="admin-form-group">
+                                <label><i class="fa-solid fa-image"></i> Снимка</label>
+                                <div class="upload-area" id="prodUploadArea">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    <p>Плъзнете файл или <span class="highlight">изберете</span></p>
+                                    <input type="file" name="image" accept="image/*" style="display:none" id="prodImageInput" />
+                                    <div class="upload-preview" id="prodPreview"></div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-admin btn-admin-gold w-100">
+                                <i class="fa-solid fa-plus"></i> Добави продукт
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="admin-card">
+                        <h3><i class="fa-solid fa-list text-gold"></i> Съществуващи Продукти (@Model.Products.Count)</h3>
+                        @if (Model.Products.Any())
+                        {
+                            <ul class="admin-list">
+                                @foreach (var prod in Model.Products)
+                                {
+                                    <li class="admin-list-item">
+                                        <div class="admin-list-item-info">
+                                            @if (!string.IsNullOrEmpty(prod.ImagePath))
+                                            {
+                                                <img src="@prod.ImagePath" alt="@prod.Name" class="admin-list-item-img" />
+                                            }
+                                            else
+                                            {
+                                                <div class="admin-list-item-img d-flex align-items-center justify-content-center" style="background: var(--bg-surface);">
+                                                    <i class="fa-solid fa-box" style="color: var(--text-muted);"></i>
+                                                </div>
+                                            }
+                                            <div>
+                                                <div class="admin-list-item-name">@prod.Name</div>
+                                                <div class="admin-list-item-sub">@prod.Category.Name @(prod.Subcategory != null ? $"→ {prod.Subcategory.Name}" : "")</div>
+                                            </div>
+                                        </div>
+                                        <div class="admin-list-item-actions">
+                                            <form method="post" asp-page-handler="DeleteProduct" style="display:inline">
+                                                <input type="hidden" name="id" value="@prod.Id" />
+                                                <button type="submit" class="btn-icon danger" onclick="return confirm('Сигурни ли сте?')" title="Изтрий">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p style="color: var(--text-muted); text-align: center; padding: 20px;">Няма продукти.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+<script>
+    // Subcategory data from server
+    var subcategoriesByCategory = {};
+    @foreach (var cat in Model.Categories)
+    {
+        <text>
+        subcategoriesByCategory[@cat.Id] = [
+            @foreach (var sub in cat.Subcategories.OrderBy(s => s.SortOrder))
+            {
+                <text>{ id: @sub.Id, name: "@sub.Name" },</text>
+            }
+        ];
+        </text>
+    }
+
+    function updateSubcategoryOptions(categoryId) {
+        var select = document.getElementById('prodSubCat');
+        select.innerHTML = '<option value="">— Без подкатегория —</option>';
+        if (categoryId && subcategoriesByCategory[categoryId]) {
+            subcategoriesByCategory[categoryId].forEach(function(sub) {
+                var opt = document.createElement('option');
+                opt.value = sub.id;
+                opt.textContent = sub.name;
+                select.appendChild(opt);
+            });
+        }
+    }
+</script>
+}

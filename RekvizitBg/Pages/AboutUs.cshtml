@@ -3,30 +3,104 @@
 @{
     ViewData["Title"] = "За нас";
 }
-<div class="container py-5 ">
-    <h1 class="text-center mb-5"><b>Кои сме ние?</b></h1>
 
-    <div class="row align-items-start">
-        <!-- Колона за изображението с background-image -->
-        <div class="col-md-5">
-            <div class="about-image"></div> <!-- Използваме div за изображението като фон -->
-        </div>
+<!-- ===== ABOUT HERO ===== -->
+<section class="about-hero" style="background-image: url('/images/aboutus.webp');">
+    <div class="container text-center py-5">
+        <span class="hero-badge"><i class="fa-solid fa-users"></i> За нашия екип</span>
+        <h1 class="hero-title">Кои сме <span class="highlight">ние?</span></h1>
+        <p class="hero-subtitle">Повече от десетилетие създаваме магия за българското и международно кино с уникални реквизити.</p>
+    </div>
+</section>
 
-        <!-- Колона за текста -->
-        <div class="col-md-7">
-            <p class="lead">Реквизит БГ е лидер в предоставянето на уникални реквизити и аксесоари за филми, театрални постановки, телевизионни продукции и ретро събития. С над 10 години опит, ние предлагаме разнообразие от предмети, които придават автентичност и живот на всеки проект.</p>
-
-            <p>Нашата мисия е да осигурим качествени и разнообразни реквизити на достъпни цени, като същевременно подкрепяме креативността на нашите клиенти. Независимо дали става въпрос за голяма филмова продукция или малък театрален проект, ние имаме предметите, от които се нуждаете.</p>
-
-            <p>В нашия каталог ще намерите всичко - от ретро мебели и аксесоари, до оръжия и орнаменти, подходящи за всякакви сцени и събития.</p>
-
-            <h4 class="mt-4">Защо да изберете нас?</h4>
-            <ul>
-                <li>Голямо разнообразие от висококачествени реквизити</li>
-                <li>Отдаване под наем и продажба според нуждите на проекта</li>
-                <li>Бързо и лесно обслужване с индивидуален подход</li>
-            </ul>
+<!-- ===== STATS BAR ===== -->
+<section class="stats-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 col-md-3 reveal reveal-delay-1">
+                <div class="stat-item">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Години опит</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 reveal reveal-delay-2">
+                <div class="stat-item">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Реквизита</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 reveal reveal-delay-3">
+                <div class="stat-item">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">Продукции</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3 reveal reveal-delay-4">
+                <div class="stat-item">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Категории</div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</section>
 
+<!-- ===== ABOUT CONTENT ===== -->
+<section class="about-content">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <!-- Image -->
+            <div class="col-lg-5 reveal">
+                <div class="about-image-wrapper">
+                    <img src="/images/about_team.png" alt="Реквизит БГ Работилница" loading="lazy" />
+                </div>
+            </div>
+            <!-- Text -->
+            <div class="col-lg-7 reveal reveal-delay-2">
+                <div class="about-text">
+                    <h3><i class="fa-solid fa-scroll"></i> Нашата История</h3>
+                    <p class="lead" style="color: var(--text-primary);">Реквизит БГ е лидер в предоставянето на уникални реквизити и аксесоари за филми, театрални постановки, телевизионни продукции и ретро събития.</p>
+                    <p>С над 10 години опит, ние предлагаме разнообразие от предмети, които придават автентичност и живот на всеки проект. Нашата мисия е да осигурим качествени и разнообразни реквизити на достъпни цени, като същевременно подкрепяме креативността на нашите клиенти.</p>
+                    <p>Независимо дали става въпрос за голяма филмова продукция или малък театрален проект, ние имаме предметите, от които се нуждаете. В нашия каталог ще намерите всичко — от ретро мебели и аксесоари, до оръжия, костюми и класически автомобили.</p>
+                    
+                    <h3 class="mt-4"><i class="fa-solid fa-medal"></i> Защо да изберете нас?</h3>
+                    <ul class="about-list">
+                        <li>
+                            <i class="fa-solid fa-check-circle"></i>
+                            <span><strong>Голямо разнообразие</strong> — Над 1000 висококачествени реквизита в 6+ категории</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check-circle"></i>
+                            <span><strong>Гъвкави условия</strong> — Отдаване под наем и продажба, съобразени с нуждите на проекта</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check-circle"></i>
+                            <span><strong>Бързо обслужване</strong> — Индивидуален подход и бързо реагиране на всяко запитване</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check-circle"></i>
+                            <span><strong>Професионализъм</strong> — Доказан опит с водещи кино и ТВ продукции в България</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check-circle"></i>
+                            <span><strong>Доставка навсякъде</strong> — Организираме транспорт до всяко място в страната</span>
+                        </li>
+                    </ul>
+
+                    <a href="/Contacts" class="btn-gold mt-3"><i class="fa-solid fa-paper-plane"></i> Свържете се с нас</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CTA BANNER ===== -->
+<section class="cta-banner">
+    <div class="container">
+        <div class="cta-inner reveal">
+            <h2>Готови за <span class="text-gold">следващия проект?</span></h2>
+            <p>Разкажете ни за вашата продукция и ние ще предложим най-подходящите реквизити от нашата колекция.</p>
+            <a href="/Contacts" class="btn-gold"><i class="fa-solid fa-comments"></i> Започнете разговор</a>
+        </div>
+    </div>
+</section>

@@ -3,62 +3,195 @@
 @{
     ViewData["Title"] = "Начало";
 }
-<div class="jumbotron text-center bg-image" style="background-image: url('/images/background.webp'); background-size: cover; height: 60vh; color: white;">
+
+<!-- ===== HERO SECTION ===== -->
+<section class="hero" id="hero">
+    <div class="hero-bg" style="background-image: url('/images/hero_banner.png');"></div>
+    <div class="hero-content">
+        <span class="hero-badge"><i class="fa-solid fa-clapperboard"></i> Реквизити под наем</span>
+        <h1 class="hero-title">Магията на <span class="highlight">Киното</span> под наем</h1>
+        <p class="hero-subtitle">Уникална колекция от филмови реквизити, ретро мебели, костюми, оръжия и класически автомобили за кино, театър и специални събития.</p>
+        <div class="hero-buttons">
+            <a href="/Catalog" class="btn-gold"><i class="fa-solid fa-film"></i> Разгледай каталога</a>
+            <a href="/Contacts" class="btn-outline-gold"><i class="fa-solid fa-paper-plane"></i> Изпрати запитване</a>
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="hero-stat-number">1000+</div>
+                <div class="hero-stat-label">Реквизита</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-number">10+</div>
+                <div class="hero-stat-label">Години опит</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-number">200+</div>
+                <div class="hero-stat-label">Продукции</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CATEGORIES SECTION ===== -->
+<section class="categories-section" id="categories">
     <div class="container">
-        <h1 class="display-4">РЕКВИЗИТ БГ</h1>
-        <p class="lead ">Магията на киното и ретрото под наем. Открийте нашата уникална колекция от реквизити и аксесоари.</p>
-        <a class="btn btn-outline-light btn-lg" href="/Contacts">Свържете се с нас</a>
+        <div class="section-title reveal">
+            <h2><i class="fa-solid fa-masks-theater text-gold"></i> Нашите Категории</h2>
+            <p>Разгледайте нашата богата колекция от реквизити за всякакви кино и театрални продукции.</p>
+        </div>
+        <div class="row g-4">
+            <!-- Мебели -->
+            <div class="col-lg-4 col-md-6 reveal reveal-delay-1">
+                <a href="/Catalog" class="text-decoration-none">
+                    <div class="category-card">
+                        <div class="category-card-img" style="background-image: url('/images/old_furniture.webp');"></div>
+                        <div class="category-card-content">
+                            <div class="category-card-icon"><i class="fa-solid fa-couch"></i></div>
+                            <h3>Мебели</h3>
+                            <p>Изключителен избор от ретро и модерни мебели за всякакви сцени и филмови продукции.</p>
+                            <span class="category-card-link">Разгледай <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- Аксесоари -->
+            <div class="col-lg-4 col-md-6 reveal reveal-delay-2">
+                <a href="/Catalog" class="text-decoration-none">
+                    <div class="category-card">
+                        <div class="category-card-img" style="background-image: url('/images/old_accesoaries.webp');"></div>
+                        <div class="category-card-content">
+                            <div class="category-card-icon"><i class="fa-solid fa-hat-wizard"></i></div>
+                            <h3>Аксесоари</h3>
+                            <p>Уникални аксесоари за разнообразни събития, филми и театрални проекти.</p>
+                            <span class="category-card-link">Разгледай <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- Оръжия -->
+            <div class="col-lg-4 col-md-6 reveal reveal-delay-3">
+                <a href="/Catalog" class="text-decoration-none">
+                    <div class="category-card">
+                        <div class="category-card-img" style="background-image: url('/images/old_weapons.webp');"></div>
+                        <div class="category-card-content">
+                            <div class="category-card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                            <h3>Оръжия и Брони</h3>
+                            <p>Голям избор от реквизитни оръжия и брони за исторически и кино продукции.</p>
+                            <span class="category-card-link">Разгледай <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- Декорации -->
+            <div class="col-lg-4 col-md-6 reveal reveal-delay-4">
+                <a href="/Catalog" class="text-decoration-none">
+                    <div class="category-card">
+                        <div class="category-card-img" style="background-image: url('/images/old_items.webp');"></div>
+                        <div class="category-card-content">
+                            <div class="category-card-icon"><i class="fa-solid fa-palette"></i></div>
+                            <h3>Декорации</h3>
+                            <p>Разнообразие от декоративни елементи за филмови и театрални сцени.</p>
+                            <span class="category-card-link">Разгледай <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- Ретро Автомобили -->
+            <div class="col-lg-4 col-md-6 reveal reveal-delay-5">
+                <a href="/Catalog" class="text-decoration-none">
+                    <div class="category-card">
+                        <div class="category-card-img" style="background-image: url('/images/retro_cars.png');"></div>
+                        <div class="category-card-content">
+                            <div class="category-card-icon"><i class="fa-solid fa-car-side"></i></div>
+                            <h3>Ретро Автомобили</h3>
+                            <p>Класически ретро автомобили под наем за филми, реклами и специални събития.</p>
+                            <span class="category-card-link">Разгледай <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- Костюми -->
+            <div class="col-lg-4 col-md-6 reveal reveal-delay-6">
+                <a href="/Catalog" class="text-decoration-none">
+                    <div class="category-card">
+                        <div class="category-card-img" style="background-image: url('/images/costumes.png');"></div>
+                        <div class="category-card-content">
+                            <div class="category-card-icon"><i class="fa-solid fa-shirt"></i></div>
+                            <h3>Костюми</h3>
+                            <p>Театрални и филмови костюми от различни исторически периоди.</p>
+                            <span class="category-card-link">Разгледай <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
     </div>
-</div>
+</section>
 
-<div class="container py-5">
-    <h2 class="text-center mb-4"><b>Нашите Категории</b></h2>
-    <div class="row">
-        <div class="col-md-3 mb-4">
-            <div class="card shadow-sm">
-                <img src="~/images/old_furniture.webp" class="card-img-top" alt="Мебели">
-                <div class="card-body">
-                    <h5 class="card-title">Мебели</h5>
-                    <p class="card-text">Изключителен избор от ретро и модерни мебели за всякакви сцени.</p>
-                    @* <a href="/Categories/Furniture" class="btn btn-primary">Виж повече</a> *@
+<!-- ===== WHY CHOOSE US ===== -->
+<section class="why-section" id="why-us">
+    <div class="container">
+        <div class="section-title reveal">
+            <h2><i class="fa-solid fa-star text-gold"></i> Защо Реквизит БГ?</h2>
+            <p>С нас получавате надеждност, качество и професионализъм при всеки проект.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6 reveal reveal-delay-1">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-gem"></i></div>
+                    <h4>Уникална Колекция</h4>
+                    <p>Над 1000 автентични реквизита — от ретро мебели и оръжия до класически автомобили и костюми.</p>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3 mb-4">
-            <div class="card shadow-sm">
-                <img src="~/images/old_accesoaries.webp" class="card-img-top" alt="Аксесоари">
-                <div class="card-body">
-                    <h5 class="card-title">Аксесоари</h5>
-                    <p class="card-text">Уникални аксесоари за разнообразни събития и проекти.</p>
-                    @* <a href="/Categories/Accessories" class="btn btn-primary">Виж повече</a> *@
+            <div class="col-lg-4 col-md-6 reveal reveal-delay-2">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                    <h4>Бърза Доставка</h4>
+                    <p>Организираме доставка до всяко място за снимки или събитие в цялата страна.</p>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3 mb-4">
-            <div class="card shadow-sm">
-                <img src="~/images/old_weapons.webp" class="card-img-top" alt="Оръжия">
-                <div class="card-body">
-                    <h5 class="card-title">Оръжия</h5>
-                    <p class="card-text">Голям избор от оръжия за исторически и кино продукции.</p>
-                    @* <a href="/Categories/Weapons" class="btn btn-primary">Виж повече</a> *@
+            <div class="col-lg-4 col-md-6 reveal reveal-delay-3">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-handshake"></i></div>
+                    <h4>Индивидуален Подход</h4>
+                    <p>Работим с вас за намиране на перфектния реквизит. Предлагаме консултации и персонализирани решения.</p>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3 mb-4">
-            <div class="card shadow-sm">
-                <img src="~/images/old_items.webp" class="card-img-top" alt="Разни предмети">
-                <div class="card-body">
-                    <h5 class="card-title">Разни предмети</h5>
-                    <p class="card-text">Открийте разнообразие от уникални предмети за всякакви нужди.</p>
-                    @* <a href="/Categories/Various" class="btn btn-primary">Виж повече</a> *@
+            <div class="col-lg-4 col-md-6 reveal reveal-delay-4">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-clock"></i></div>
+                    <h4>10+ Години Опит</h4>
+                    <p>Десетилетие опит в снабдяването на водещи кино и ТВ продукции с автентични реквизити.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 reveal reveal-delay-5">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-tags"></i></div>
+                    <h4>Достъпни Цени</h4>
+                    <p>Гъвкаво ценообразуване за наем или закупуване — подбираме решения според бюджета ви.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 reveal reveal-delay-6">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-camera-retro"></i></div>
+                    <h4>Перфектни за Снимки</h4>
+                    <p>Нашите реквизити са подготвени за камера — автентични, почистени и в отлично състояние.</p>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
-<div class="container text-center pb-5 ">
-    <b>
-        <a class="btn btn-outline-dark btn-lg" href="/Contacts">Свържете се с нас за информаиця и цени - реквизити под наем </a>
-    </b>
-</div>
+<!-- ===== CTA BANNER ===== -->
+<section class="cta-banner">
+    <div class="container">
+        <div class="cta-inner reveal">
+            <h2>Имате проект? <span class="text-gold">Нека помогнем!</span></h2>
+            <p>Свържете се с нас за безплатна консултация. Ще намерим точните реквизити за вашата продукция или събитие.</p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="/Contacts" class="btn-gold"><i class="fa-solid fa-paper-plane"></i> Изпратете запитване</a>
+                <a href="tel:+359897088791" class="btn-outline-gold"><i class="fa-solid fa-phone"></i> Обадете се сега</a>
+            </div>
+        </div>
+    </div>
+</section>

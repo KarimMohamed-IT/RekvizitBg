@@ -1,0 +1,130 @@
+@page
+@model CatalogModel
+@{
+    ViewData["Title"] = "Каталог";
+}
+
+<!-- ===== CATALOG HERO ===== -->
+<section class="about-hero" style="background-image: url('/images/background.webp'); min-height: 35vh;">
+    <div class="container text-center py-5">
+        <span class="hero-badge"><i class="fa-solid fa-film"></i> Нашата колекция</span>
+        <h1 class="hero-title">Каталог <span class="highlight">Реквизити</span></h1>
+        <p class="hero-subtitle">Разгледайте нашата богата колекция от реквизити за вашия проект.</p>
+    </div>
+</section>
+
+<!-- ===== CATALOG SECTION ===== -->
+<section class="catalog-section">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Sidebar -->
+            <div class="col-lg-3 reveal">
+                <div class="catalog-sidebar">
+                    <h4><i class="fa-solid fa-filter text-gold"></i> Категории</h4>
+                    
+                    <!-- All -->
+                    <div class="sidebar-category">
+                        <button class="sidebar-category-btn @(Model.CategoryId == null ? "active" : "")"
+                                onclick="window.location.href='/Catalog'">
+                            <span><i class="fa-solid fa-border-all"></i> Всички</span>
+                        </button>
+                    </div>
+
+                    @foreach (var cat in Model.Categories)
+                    {
+                        <div class="sidebar-category">
+                            <button class="sidebar-category-btn @(Model.CategoryId == cat.Id ? "active" : "")"
+                                    onclick="window.location.href='/Catalog?categoryId=@cat.Id'">
+                                <span>@cat.Name</span>
+                                @if (cat.Subcategories.Any())
+                                {
+                                    <i class="fa-solid fa-chevron-right toggle-icon"></i>
+                                }
+                            </button>
+                            @if (cat.Subcategories.Any())
+                            {
+                                <div class="sidebar-subcategories @(Model.CategoryId == cat.Id ? "open" : "")">
+                                    @foreach (var sub in cat.Subcategories.OrderBy(s => s.SortOrder))
+                                    {
+                                        <button class="sidebar-sub-link @(Model.SubcategoryId == sub.Id ? "active" : "")"
+                                                onclick="window.location.href='/Catalog?categoryId=@cat.Id&subcategoryId=@sub.Id'">
+                                            @sub.Name
+                                        </button>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    }
+
+                    <hr style="border-color: var(--border-subtle); margin: 20px 0;">
+                    <a href="/Contacts" class="btn-gold w-100 justify-content-center" style="font-size: 0.85rem; padding: 12px;">
+                        <i class="fa-solid fa-paper-plane"></i> Запитване за наем
+                    </a>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="col-lg-9">
+                <div class="d-flex justify-content-between align-items-center mb-4 reveal">
+                    <h3 style="margin: 0; font-size: 1.3rem;">
+                        @if (Model.CategoryId.HasValue)
+                        {
+                            var selectedCat = Model.Categories.FirstOrDefault(c => c.Id == Model.CategoryId);
+                            @(selectedCat?.Name ?? "Всички реквизити")
+                        }
+                        else
+                        {
+                            <text>Всички реквизити</text>
+                        }
+                    </h3>
+                    <span style="color: var(--text-muted); font-size: 0.9rem;">
+                        <i class="fa-solid fa-cube"></i> @Model.Products.Count продукта
+                    </span>
+                </div>
+
+                @if (Model.Products.Any())
+                {
+                    <div class="product-grid">
+                        @foreach (var product in Model.Products)
+                        {
+                            <div class="product-card reveal">
+                                <div class="product-card-img-wrapper">
+                                    @if (!string.IsNullOrEmpty(product.ImagePath))
+                                    {
+                                        <img src="@product.ImagePath" alt="@product.Name" class="product-card-img" loading="lazy" />
+                                    }
+                                    else
+                                    {
+                                        <div class="product-card-img d-flex align-items-center justify-content-center" style="background: var(--bg-surface);">
+                                            <i class="fa-solid fa-image" style="font-size: 3rem; color: var(--text-muted);"></i>
+                                        </div>
+                                    }
+                                    @if (product.IsAvailable)
+                                    {
+                                        <span class="product-card-badge">Наличен</span>
+                                    }
+                                </div>
+                                <div class="product-card-body">
+                                    <h5>@product.Name</h5>
+                                    @if (!string.IsNullOrEmpty(product.Description))
+                                    {
+                                        <p>@product.Description</p>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-5 reveal">
+                        <i class="fa-solid fa-box-open" style="font-size: 4rem; color: var(--text-muted); margin-bottom: 20px; display: block;"></i>
+                        <h4 style="color: var(--text-muted);">Все още няма добавени продукти</h4>
+                        <p style="color: var(--text-muted);">Разгледайте другите категории или се свържете с нас за информация.</p>
+                        <a href="/Contacts" class="btn-outline-gold mt-3"><i class="fa-solid fa-paper-plane"></i> Свържете се с нас</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
