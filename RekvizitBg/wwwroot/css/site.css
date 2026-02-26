@@ -624,7 +624,33 @@ a:hover {
     transform: translateX(0);
 }
 
-/* ===================================================================
+.category-card-wide {
+    height: 280px;
+}
+
+.category-card-wide .category-card-content {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.category-card-wide .category-card-icon {
+    margin-bottom: 0;
+}
+
+.category-card-wide p {
+    opacity: 1;
+    max-height: 80px;
+    margin-bottom: 0;
+}
+
+.category-card-wide .category-card-link {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* =================================================================== 
    WHY CHOOSE US
    =================================================================== */
 .why-section {
