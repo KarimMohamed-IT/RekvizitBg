@@ -33,6 +33,7 @@ namespace RekvizitBg.Pages
             Categories = await _context.Categories
                 .Include(c => c.Subcategories)
                 .OrderBy(c => c.SortOrder)
+                .AsNoTracking()
                 .ToListAsync();
 
             var query = _context.Products
@@ -49,7 +50,7 @@ namespace RekvizitBg.Pages
                 query = query.Where(p => p.SubcategoryId == SubcategoryId.Value);
             }
 
-            Products = await query.OrderBy(p => p.SortOrder).ToListAsync();
+            Products = await query.OrderBy(p => p.SortOrder).AsNoTracking().ToListAsync();
         }
     }
 }

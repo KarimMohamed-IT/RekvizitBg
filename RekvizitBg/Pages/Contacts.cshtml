@@ -23,6 +23,12 @@
                 <i class="fa-solid fa-circle-check" style="font-size: 1.2rem;"></i> @TempData["SuccessMessage"]
             </div>
         }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert-success mb-5 text-center reveal" style="border-color: rgba(220,53,69,0.3); background: rgba(220,53,69,0.1); color: #ef5350;">
+                <i class="fa-solid fa-circle-exclamation" style="font-size: 1.2rem;"></i> @TempData["ErrorMessage"]
+            </div>
+        }
 
         <div class="row g-5">
             <!-- Contact Info -->
@@ -76,36 +82,62 @@
             <div class="col-lg-7 reveal reveal-delay-2">
                 <div class="contact-form-card">
                     <h3 class="mb-4" style="font-size: 1.3rem;"><i class="fa-solid fa-pen-to-square text-gold"></i> Изпратете запитване</h3>
-                    <form method="post" asp-page-handler="SendMessage" id="contactForm">
+                    <form method="post" asp-page-handler="SendMessage" id="contactForm" novalidate>
+                        @Html.AntiForgeryToken()
+
+                        <!-- HONEYPOT: Hidden field — invisible to humans, filled by bots -->
+                        <div style="position: absolute; left: -9999px; top: -9999px; opacity: 0; height: 0; overflow: hidden;" aria-hidden="true" tabindex="-1">
+                            <label for="website">Leave empty</label>
+                            <input type="text" id="website" name="Website" autocomplete="off" tabindex="-1" />
+                        </div>
+
+                        <!-- TIMING TOKEN: Anti-bot timing check -->
+                        <input type="hidden" name="FormToken" value="@Model.GeneratedToken" />
+
                         <div class="row g-4">
                             <div class="col-md-6">
                                 <div class="form-floating-label">
                                     <label for="name"><i class="fa-solid fa-user"></i> Име</label>
-                                    <input type="text" id="name" name="name" placeholder="Вашето име" required />
+                                    <input type="text" id="name" name="Name" placeholder="Вашето име"
+                                           required minlength="2" maxlength="100"
+                                           value="@Model.Name" />
+                                    <span asp-validation-for="Name" class="field-validation-error"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating-label">
                                     <label for="email"><i class="fa-solid fa-envelope"></i> Имейл</label>
-                                    <input type="email" id="email" name="email" placeholder="email@example.com" required />
+                                    <input type="email" id="email" name="Email" placeholder="email@example.com"
+                                           required maxlength="254"
+                                           value="@Model.Email" />
+                                    <span asp-validation-for="Email" class="field-validation-error"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating-label">
                                     <label for="phone"><i class="fa-solid fa-phone"></i> Телефон</label>
-                                    <input type="tel" id="phone" name="phone" placeholder="+359 ..." required />
+                                    <input type="tel" id="phone" name="Phone" placeholder="+359 ..."
+                                           required maxlength="20"
+                                           pattern="[\d\+\-\s\(\)]+"
+                                           value="@Model.Phone" />
+                                    <span asp-validation-for="Phone" class="field-validation-error"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating-label">
                                     <label for="subject"><i class="fa-solid fa-tag"></i> Относно</label>
-                                    <input type="text" id="subject" name="subject" placeholder="Тема на запитването" />
+                                    <input type="text" id="subject" name="Subject" placeholder="Тема на запитването"
+                                           maxlength="200"
+                                           value="@Model.Subject" />
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating-label">
                                     <label for="message"><i class="fa-solid fa-comment-dots"></i> Съобщение</label>
-                                    <textarea id="message" name="message" placeholder="Опишете вашите нужди — какви реквизити търсите, за какъв тип продукция, период на наемане и т.н." required></textarea>
+                                    <textarea id="message" name="Message"
+                                              placeholder="Опишете вашите нужди — какви реквизити търсите, за какъв тип продукция, период на наемане и т.н."
+                                              required minlength="10" maxlength="2000">@Model.Message</textarea>
+                                    <span asp-validation-for="Message" class="field-validation-error"></span>
                                 </div>
                             </div>
                             <div class="col-12 text-center">

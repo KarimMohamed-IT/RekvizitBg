@@ -1,5 +1,5 @@
 ﻿/* ===================================================================
-   РЕКВИЗИТ БГ — Site JavaScript
+   РЕКВИЗИТ БГ — Site JavaScript (Security & Performance Enhanced)
    =================================================================== */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -9,11 +9,18 @@ document.addEventListener('DOMContentLoaded', function () {
         var nav = document.getElementById('mainNav');
         if (!nav) return;
 
+        var ticking = false;
         function onScroll() {
-            if (window.scrollY > 60) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
+            if (!ticking) {
+                requestAnimationFrame(function () {
+                    if (window.scrollY > 60) {
+                        nav.classList.add('scrolled');
+                    } else {
+                        nav.classList.remove('scrolled');
+                    }
+                    ticking = false;
+                });
+                ticking = true;
             }
         }
         window.addEventListener('scroll', onScroll, { passive: true });
@@ -25,11 +32,18 @@ document.addEventListener('DOMContentLoaded', function () {
         var btn = document.getElementById('backToTop');
         if (!btn) return;
 
+        var ticking = false;
         window.addEventListener('scroll', function () {
-            if (window.scrollY > 400) {
-                btn.classList.add('visible');
-            } else {
-                btn.classList.remove('visible');
+            if (!ticking) {
+                requestAnimationFrame(function () {
+                    if (window.scrollY > 400) {
+                        btn.classList.add('visible');
+                    } else {
+                        btn.classList.remove('visible');
+                    }
+                    ticking = false;
+                });
+                ticking = true;
             }
         }, { passive: true });
 
@@ -38,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     })();
 
-    // ===== SCROLL REVEAL =====
+    // ===== SCROLL REVEAL (IntersectionObserver) =====
     (function () {
         var reveals = document.querySelectorAll('.reveal');
         if (!reveals.length) return;
@@ -84,13 +98,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
             var duration = 2000;
             var startTime = null;
-            var startVal = 0;
 
             function step(timestamp) {
                 if (!startTime) startTime = timestamp;
                 var progress = Math.min((timestamp - startTime) / duration, 1);
-                var eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-                var current = Math.floor(startVal + (num - startVal) * eased);
+                var eased = 1 - Math.pow(1 - progress, 3);
+                var current = Math.floor(num * eased);
                 el.textContent = current + (hasPlus ? '+' : '');
                 if (progress < 1) {
                     requestAnimationFrame(step);
@@ -107,10 +120,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         tabs.forEach(function (tab) {
             tab.addEventListener('click', function () {
-                // Deactivate all
                 tabs.forEach(function (t) { t.classList.remove('active'); });
                 document.querySelectorAll('.admin-tab-content').forEach(function (c) { c.classList.remove('active'); });
-                // Activate clicked
                 tab.classList.add('active');
                 var target = document.getElementById(tab.getAttribute('data-tab'));
                 if (target) target.classList.add('active');
@@ -118,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     })();
 
-    // ===== UPLOAD AREAS =====
+    // ===== UPLOAD AREAS (Drag & Drop + Preview) =====
     (function () {
         var uploadConfigs = [
             { area: 'catUploadArea', input: 'catImageInput', preview: 'catPreview' },
@@ -126,18 +137,19 @@ document.addEventListener('DOMContentLoaded', function () {
             { area: 'prodUploadArea', input: 'prodImageInput', preview: 'prodPreview' }
         ];
 
+        var MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+        var ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+
         uploadConfigs.forEach(function (cfg) {
             var area = document.getElementById(cfg.area);
             var input = document.getElementById(cfg.input);
             var preview = document.getElementById(cfg.preview);
             if (!area || !input) return;
 
-            // Click to open file picker
             area.addEventListener('click', function (e) {
                 if (e.target !== input) input.click();
             });
 
-            // Drag & drop
             area.addEventListener('dragover', function (e) {
                 e.preventDefault();
                 area.classList.add('dragover');
@@ -149,18 +161,37 @@ document.addEventListener('DOMContentLoaded', function () {
                 e.preventDefault();
                 area.classList.remove('dragover');
                 if (e.dataTransfer.files.length) {
-                    input.files = e.dataTransfer.files;
-                    showPreview(input.files[0], preview);
+                    var file = e.dataTransfer.files[0];
+                    if (validateFile(file)) {
+                        input.files = e.dataTransfer.files;
+                        showPreview(file, preview);
+                    }
                 }
             });
 
-            // File selected
             input.addEventListener('change', function () {
                 if (input.files.length) {
-                    showPreview(input.files[0], preview);
+                    var file = input.files[0];
+                    if (validateFile(file)) {
+                        showPreview(file, preview);
+                    } else {
+                        input.value = '';
+                    }
                 }
             });
         });
+
+        function validateFile(file) {
+            if (!ALLOWED_TYPES.includes(file.type)) {
+                showToast('Позволени са само изображения (JPG, PNG, WebP, GIF).', 'error');
+                return false;
+            }
+            if (file.size > MAX_FILE_SIZE) {
+                showToast('Файлът е прекалено голям. Максимум 5MB.', 'error');
+                return false;
+            }
+            return true;
+        }
 
         function showPreview(file, previewEl) {
             if (!previewEl || !file) return;
@@ -183,6 +214,61 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     })();
 
+    // ===== CONTACT FORM — CLIENT-SIDE VALIDATION + SUBMIT PROTECTION =====
+    (function () {
+        var form = document.getElementById('contactForm');
+        if (!form) return;
+
+        var submitBtn = document.getElementById('submitBtn');
+        var isSubmitting = false;
+
+        // Email regex for client-side validation
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var phoneRegex = /^[\d\+\-\s\(\)]+$/;
+
+        form.addEventListener('submit', function (e) {
+            // Prevent double submission
+            if (isSubmitting) {
+                e.preventDefault();
+                return;
+            }
+
+            // Client-side validation
+            var name = form.querySelector('[name="Name"]');
+            var email = form.querySelector('[name="Email"]');
+            var phone = form.querySelector('[name="Phone"]');
+            var message = form.querySelector('[name="Message"]');
+            var errors = [];
+
+            if (!name || name.value.trim().length < 2) {
+                errors.push('Моля, въведете вашето име (минимум 2 символа).');
+            }
+            if (!email || !emailRegex.test(email.value.trim())) {
+                errors.push('Моля, въведете валиден имейл адрес.');
+            }
+            if (!phone || !phoneRegex.test(phone.value.trim())) {
+                errors.push('Моля, въведете валиден телефонен номер.');
+            }
+            if (!message || message.value.trim().length < 10) {
+                errors.push('Съобщението трябва да е поне 10 символа.');
+            }
+
+            if (errors.length > 0) {
+                e.preventDefault();
+                showToast(errors[0], 'error');
+                return;
+            }
+
+            // Mark as submitting
+            isSubmitting = true;
+            if (submitBtn) {
+                submitBtn.innerHTML = '<span class="spinner"></span> Изпращане...';
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.7';
+            }
+        });
+    })();
+
     // ===== TOAST NOTIFICATIONS =====
     window.showToast = function (message, type) {
         var existing = document.querySelector('.toast-notification');
@@ -200,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 4000);
     };
 
-    // ===== SMOOTH SECTION SCROLL FOR ANCHOR LINKS =====
+    // ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
     document.querySelectorAll('a[href^="#"]').forEach(function (link) {
         link.addEventListener('click', function (e) {
             var targetId = this.getAttribute('href');
@@ -213,18 +299,24 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // ===== CONTACT FORM SUBMISSION FEEDBACK =====
+    // ===== LAZY LOAD IMAGES =====
     (function () {
-        var form = document.getElementById('contactForm');
-        if (!form) return;
+        if ('loading' in HTMLImageElement.prototype) return; // Native support
+        var images = document.querySelectorAll('img[loading="lazy"]');
+        if (!images.length) return;
 
-        form.addEventListener('submit', function () {
-            var btn = document.getElementById('submitBtn');
-            if (btn) {
-                btn.innerHTML = '<span class="spinner"></span> Изпращане...';
-                btn.disabled = true;
-            }
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    var img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                    }
+                    observer.unobserve(img);
+                }
+            });
         });
+        images.forEach(function (img) { observer.observe(img); });
     })();
 
 });
